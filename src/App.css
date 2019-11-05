@@ -2,17 +2,24 @@
 
 * {box-sizing: border-box;}
 
-html, body, #root, main {height: 100%;}
+html, body{height: auto; color: #e0e0e0;}
+#root, main {height: auto;}
 
 body {
   background: #171a20;
 }
 
 main {
-  color: #e0e0e0;
   font-family: 'Lexend Deca', sans-serif;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  overflow: auto;
+}
+
+.banner {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2vh;
+  width: 100%;
+  font-size: 4vh;
 }
 
 .main-header {
@@ -21,10 +28,13 @@ main {
 
 main > div {
   height: 100%;
+  width: 50%;
 }
 
-.left {
-  padding: 5vh;
+.text {
+  padding: 10vh;
+  position: fixed;
+  right: 0;
 }
 
 .my-name {
@@ -36,10 +46,31 @@ main > div {
 
 .pseudo-img {
   border: 1px solid gray;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   display: flex;
   background: #303030;
   justify-content: center;
   align-items: center;
+}
+
+footer {
+  background: #202020;
+  box-shadow: 0 1px 5px 3px black;
+  z-index: 10;
+  padding: 20px;
+  height: auto;
+}
+
+h1 {margin: 0;}
+
+::-webkit-scrollbar {
+  background: transparent;
+  width: 18px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  border: 3px solid #171a20;
 }
