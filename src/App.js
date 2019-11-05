@@ -19,11 +19,19 @@ class Name extends React.Component {
 
   render() {
     return (
-        <span class="my-name">
+        <div class="my-name">
           {this.props.name}
-        </span>
+        </div>
     )
   }
+}
+
+const Description = (props) => {
+    return(
+        <div class="description">
+            {props.text}
+        </div>
+    );
 }
 
 class Text extends React.Component {
@@ -33,10 +41,13 @@ class Text extends React.Component {
 
   render() {
     return (
-        <div class="text">
-          <header class="main-header">
-            I'm <Name name="Alex Yang"/>
-          </header>
+        <div class="text-con">
+            <div class="text">
+                <header class="main-header">
+                    I'm<Name name="Alex Yang"/>
+                </header>
+                <Description text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at nulla massa. Maecenas finibus vehicula aliquet."/>
+            </div>
         </div>
     )
   }

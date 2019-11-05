@@ -24,6 +24,9 @@ main {
 
 .main-header {
   font-size: 8vh;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
 }
 
 main > div {
@@ -31,10 +34,17 @@ main > div {
   width: 50%;
 }
 
-.text {
-  padding: 10vh;
+.text-con {
+  padding: 16vh 8vh;
   position: fixed;
   right: 0;
+}
+
+.text {}
+
+.description {
+  margin-top: 4vh;
+  color: #a0a0a0;
 }
 
 .my-name {
@@ -42,6 +52,9 @@ main > div {
   font-weight: bold;
   text-transform: capitalize;
   color: #83cafc;
+  display: flex;
+  align-items: center;
+  margin-left: 2vh;
 }
 
 .pseudo-img {
