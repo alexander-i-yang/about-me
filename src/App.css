@@ -17,7 +17,6 @@ main {
 
 .banner {
     background: rgba(255, 255, 255, 0.05);
-    padding: 2vh;
     height: 10vh;
     width: 100%;
     display: flex;
@@ -26,30 +25,45 @@ main {
 }
 
 .links {
-  display: flex;
-  align-items: center;
-  height: 100%;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-right: 2vh;
 }
 
 .links a {
     margin-left: 2vh;
+    height: 100%;
+}
+
+.links a:hover {
+    border-bottom: 2px solid #98ff98;
+    border-top:  2px solid #98ff98;
 }
 
 .primary-link {
-    border: 2px solid #a0a0a0;
-    border-radius: 100px;
-    padding: 0.5vh 1vh 1vh 1vh;
+    transition: color 0.25s, border 0.1s;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.primary-link span {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    padding: 0.5vh 2vh 1vh 2vh;
+}
+
 .primary-link:hover {border-color: #98ff98;}
+.primary-link:hover span {}
 
 a {
     cursor: pointer;
     color: #a0a0a0;
+    display: flex;
+    align-items: center;
     transition: all 0.25s;
+    text-decoration: none;
 }
 
 a:hover {
@@ -57,7 +71,10 @@ a:hover {
 }
 
 .banner > img {
-  height: 100%;
+    margin: 2vh;
+    height: 60%;
+    width: auto;
+    cursor: pointer;
 }
 
 .main-header {
@@ -81,8 +98,9 @@ main > div {
 .text {}
 
 .description {
-  margin-top: 4vh;
-  color: #a0a0a0;
+    margin-top: 4vh;
+    color: #a0a0a0;
+    font-size: 3vh;
 }
 
 .my-name {
@@ -113,6 +131,50 @@ footer {
 }
 
 h1 {margin: 0;}
+
+.scroll {
+    position: fixed;
+    width: 100%;
+    height: 15vh;
+    bottom:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s;
+}
+
+.scroll.hide {
+    transform: translateY(12vh);
+}
+
+.scroll img {
+    width: 100%;
+    height: 100%;
+    filter: brightness(0.8);
+}
+
+.scroll-badge {
+    background: #666;
+    width: 6vh;
+    height: 6vh;
+    border-radius: 50%;
+    box-shadow: 0 3px 8px 4px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-ripple {
+    position: absolute;
+    animation: ripple 2s infinite;
+    background: #666;
+    width: 12vh;
+    height: 12vh;
+    z-index: -1;
+    border-radius: 50%;
+}
+
+@keyframes ripple {
+    from {transform: scale(0); opacity: 1;}
+    to {transform: scale(1); opacity: 0;}
+}
 
 ::-webkit-scrollbar {
   background: transparent;
