@@ -1,22 +1,45 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans|Staatliches&display=swap');
+
+* {box-sizing: border-box;}
+
+html, body, #root, main {height: 100%;}
+
+body {
+  background: #171a20;
 }
 
-.App-logo {
-  height: 40vmin;
+main {
+  color: #e0e0e0;
+  font-family: 'Lexend Deca', sans-serif;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main-header {
+  font-size: 8vh;
+}
+
+main > div {
+  height: 100%;
+}
+
+.left {
+  padding: 5vh;
+}
+
+.my-name {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: bold;
+  text-transform: capitalize;
+  color: #83cafc;
+}
+
+.pseudo-img {
+  border: 1px solid gray;
+  height: 100%;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  background: #303030;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
+  align-items: center;
 }
