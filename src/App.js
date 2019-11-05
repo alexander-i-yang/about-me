@@ -1,12 +1,12 @@
 import React from 'react';
-//import niagra from './niagra.jpg';
+import logo from './logo.png';
 import './App.css';
 
 const Banner = (props) => {
     return(
         <>
             <div class="banner">
-                Alex Yang
+                <img src={logo}/>
             </div>
         </>
     );

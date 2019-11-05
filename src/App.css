@@ -18,15 +18,21 @@ main {
 .banner {
   background: rgba(255, 255, 255, 0.05);
   padding: 2vh;
+  height: 10vh;
   width: 100%;
-  font-size: 4vh;
+  display: flex;
+  align-items: center;
+}
+
+.banner img {
+  height: 100%;
 }
 
 .main-header {
   font-size: 8vh;
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
 }
 
 main > div {
@@ -48,7 +54,6 @@ main > div {
 }
 
 .my-name {
-  font-family: "Josefin Sans", sans-serif;
   font-weight: bold;
   text-transform: capitalize;
   color: #83cafc;
