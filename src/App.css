@@ -16,15 +16,47 @@ main {
 }
 
 .banner {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 2vh;
-  height: 10vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2vh;
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 3vh;
 }
 
-.banner img {
+.links {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.links a {
+    margin-left: 2vh;
+}
+
+.primary-link {
+    border: 2px solid #a0a0a0;
+    border-radius: 100px;
+    padding: 0.5vh 1vh 1vh 1vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.primary-link:hover {border-color: #98ff98;}
+
+a {
+    cursor: pointer;
+    color: #a0a0a0;
+    transition: all 0.25s;
+}
+
+a:hover {
+    color: #98ff98;
+}
+
+.banner > img {
   height: 100%;
 }
 

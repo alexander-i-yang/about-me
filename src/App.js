@@ -6,7 +6,19 @@ const Banner = (props) => {
     return(
         <>
             <div class="banner">
-                <img src={logo}/>
+                <img
+                    src={logo}
+                    onClick={
+                        function() {
+                            window.location.href = 'https://theuncleofalex.github.io/about-me';
+                        }
+                    }
+                />
+                <div class="links">
+                    <a>Achievements</a>
+                    <a>About</a>
+                    <a class="primary-link">Contact</a>
+                </div>
             </div>
         </>
     );
