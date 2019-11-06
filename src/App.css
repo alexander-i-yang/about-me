@@ -78,10 +78,11 @@ a:hover {
 }
 
 .main-header {
-  font-size: 8vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    font-size: 8vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 main > div {
@@ -122,11 +123,11 @@ main > div {
 }
 
 .my-name {
-  text-transform: capitalize;
-  color: #83cafc;
-  display: flex;
-  align-items: center;
-  margin-left: 2vh;
+    text-transform: capitalize;
+    color: #83cafc;
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 
 .pseudo-img {
@@ -240,19 +241,19 @@ h1 {margin: 0;}
 }
 
 ::-webkit-scrollbar {
-  background: transparent;
+  background: #000000;
   width: 18px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 50px;
-  border: 3px solid #171a20;
+  border: 3px solid black;
 }
 
 .text-line {
     stroke-dasharray: 500;
-    width: 50vh;
+    width: 100%;
     stroke-dashoffset: 0;
 }
 

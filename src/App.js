@@ -66,7 +66,8 @@ const Banner = (props) => {
                     }
                 />
                 <div class="links">
-                    <a href="#">Achievements</a>
+                    <a href="#">Resume</a>
+                    <a href="#">Clubs</a>
                     <a href="#">About</a>
                     <a href="#" class="primary-link"><span>Contact</span></a>
                 </div>
@@ -104,9 +105,9 @@ const MyName = (props) => {
         <>
             <div ref={ref}>Ree</div>
             <text
-                x="50%" y="55%"
+                x="0" y="55%"
                 dominantBaseline="middle"
-                textAnchor="middle">
+                textAnchor="left">
                 {props.name}
             </text>
         </>
@@ -144,9 +145,6 @@ class Name extends React.Component {
 
   render() {
       const baseWidth = nameWidths[this.props.index];
-      const style = {
-          width: baseWidth*10 + "vh"
-      };
       if(this.props.index !== this.state.prevIndex || this.state.firstTime) {
           this.animate();
       }
@@ -154,7 +152,7 @@ class Name extends React.Component {
         <div class="my-name">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                height="100" style={style}
+                height="100"
                 stroke="#83cafc" fill="#83cafc" strokeWidth="2"
                 className={"text-line " + (this.state.animate ? "animate " : "") + (this.state.fadeOut ? "fadeOut" : "")}>
                 <MyName name={this.state.name}/>
@@ -218,9 +216,9 @@ class Text extends React.Component {
       return (
         <div class="text-con">
             <div class="text">
-                <header class="main-header">
+                <div class="main-header">
                     I'm<Name index={index}/>
-                </header>
+                </div>
                 <Description index={index}/>
             </div>
         </div>
@@ -284,10 +282,8 @@ const Footer = (props) => {
     }
     return(
       <footer>
-          <h1>Let's Get In Touch!</h1>
-          <div class="contact">
-              <div class="contacts">{contacts}</div>
-          </div>
+          <h3>Contact</h3>
+          <div className="contacts">{contacts}</div>
           This website was coded from scratch using the React Library. Open source on <a href="https://github.com/theuncleofAlex/about-me/">Github</a>.
       </footer>
     );
