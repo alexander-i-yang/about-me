@@ -16,12 +16,18 @@ main {
 }
 
 .banner {
-    background: rgba(255, 255, 255, 0.05);
+    position: fixed;
+    top: 0;
+    background: #23262b;
     height: 10vh;
     width: 100%;
     display: flex;
     justify-content: space-between;
     font-size: 3vh;
+}
+
+.banner-place {
+    height: 10vh;
 }
 
 .links {
@@ -91,10 +97,41 @@ main > div {
 }
 
 .text-con {
-  padding: 16vh 8vh 0 8vh;
-  position: fixed;
-  right: 0;
-    height: 70%;
+    /*padding: 16vh 8vh 0 8vh;*/
+    position: fixed;
+    margin-left: 50%;
+    transition: all 1s;
+    background: #171a20;
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.text-con > div {
+    margin-top: 8vh;
+}
+
+.text {
+    width: 50%;
+    margin: 0 6.5vh;
+}
+
+.text-con.expanded {
+    margin-left: 0;
+}
+
+.expanded-tab {
+    margin: 0 6.5vh;
+    width: 50%;
+}
+
+.animated-expand {
+    transform: translateX(10vh);
+    transition: all 0.7s;
+    opacity: 0;
+    font-size: 3vh;
+    margin-bottom: 2vh;
+    color: #909090;
 }
 
 .description {
@@ -203,6 +240,7 @@ h1 {margin: 0;}
     padding: 1vh 1vh 1vh 3vh;
     font-size: 2vh;
     transition: all 0.5s;
+    overflow: hidden;
     display: flex;
     align-items: center;
     width: auto;
