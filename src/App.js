@@ -101,8 +101,27 @@ class Name extends React.Component {
           animate: true,
           prevIndex: this.props.index,
           fadeOut: false,
+          firstTime: true,
           name: names[this.props.index],
       }
+  }
+
+  animate() {
+      this.setState({
+          prevIndex: this.props.index,
+          firstTime: false
+      });
+      if(!this.state.firstTime) this.setState({fadeOut: true});
+      setTimeout(() => {
+          this.setState({fadeOut: false});
+          this.setState({animate: true});
+          this.setState({name: names[this.props.index]});
+          console.log("animating");
+          setTimeout(() => {
+              this.setState({animate: false});
+              console.log("stop animate");
+          }, 1200);
+      }, 1000);
   }
 
   render() {
@@ -110,21 +129,9 @@ class Name extends React.Component {
       const style = {
           width: baseWidth*10 + "vh"
       };
-      console.log(baseWidth);
-      console.log(this.state.animate);
-      if(this.props.index !== this.state.prevIndex) {
-          this.state.prevIndex = this.props.index;
-          this.setState({fadeOut: true});
-          setTimeout(() => {
-              this.setState({fadeOut: false});
-              this.setState({animate: true});
-              this.setState({name: names[this.props.index]});
-              setTimeout(() => {
-                  this.setState({animate: false});
-              }, 1200);
-          }, 1000);
+      if(this.props.index !== this.state.prevIndex || this.state.firstTime) {
+          this.animate();
       }
-      console.log(this.state.prevIndex, this.props.index);
       return (
         <div class="my-name">
             <svg
