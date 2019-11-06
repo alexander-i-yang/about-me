@@ -99,8 +99,26 @@ main > div {
 
 .description {
     margin-top: 4vh;
+    height: 24vh;
     color: #a0a0a0;
     font-size: 3vh;
+}
+
+.description.slidein {
+    animation: 1s slidein forwards;
+}
+
+.description.slideout {
+    animation: 1s slideout forwards;
+}
+
+@keyframes slidein {
+    to {transform: translateY(4vh); opacity: 0;}
+}
+
+@keyframes slideout {
+    from {transform: translateY(-4vh); opacity: 0;}
+    to {transform: translateY(0vh); opacity: 1;}
 }
 
 .my-name {
@@ -131,10 +149,28 @@ footer {
 
 h1 {margin: 0;}
 
+.secondary-description {
+    margin-top: 2vh;
+    border-top: 2px solid #a0a0a0;
+    padding-top: 2vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.learn-more {
+    border: 2px solid #a0a0a0;
+    cursor: pointer;
+    border-radius: 2vh;
+    color: #a0a0a0;
+    padding: 2vh 3vh;
+}
+
 .scroll {
     position: fixed;
-    width: 100%;
+    width: auto;
     height: 15vh;
+    left: 46%;
     bottom:0;
     display: flex;
     justify-content: center;

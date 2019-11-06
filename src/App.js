@@ -78,6 +78,28 @@ const Banner = (props) => {
 const images = ["myself", "Hangouts", "scio", "robotics", "having fun"];
 const names = ["Alex Yang", "a Developer", "a Team Player", "an Engineer", "A Real Person"];
 const nameWidths = [4, 5, 6, 5, 5.4];
+const text = [
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at nulla massa. Maecenas finibus vehicula aliquet.",
+    "Look how good I am at coding",
+    "Look how good I am at scio",
+    "Look how good I am at robotics",
+    "Look how good I am at having opinions",
+];
+const learnMores = [
+    "#",
+    "#",
+    "#",
+    "#",
+    "#",
+];
+const contactBadges = [
+    {"Email": "mailto:aspam@yang2k.com"},
+    {"Codepen": "https://codepen.io/dashboard/", "Github": "https://github.com/theuncleofAlex"},
+    {"LASAScio": "http://lasascio.com", "Medals": "#"},
+    {"Robotics": "http://lasarobotics.org",},
+    {"Resume": "#"},
+];
+
 const MyName = (props) => {
     const ref = useRef(null);
     return(
@@ -92,7 +114,7 @@ const MyName = (props) => {
         </>
     );
 }
-
+;
 class Name extends React.Component {
     // eslint-disable-next-line no-useless-constructor
   constructor(props) {
@@ -116,10 +138,8 @@ class Name extends React.Component {
           this.setState({fadeOut: false});
           this.setState({animate: true});
           this.setState({name: names[this.props.index]});
-          console.log("animating");
           setTimeout(() => {
               this.setState({animate: false});
-              console.log("stop animate");
           }, 1200);
       }, 1000);
   }
@@ -146,13 +166,59 @@ class Name extends React.Component {
   }
 }
 
-const Description = (props) => {
-    return(
-        <div class="description">
-            {props.text}
-        </div>
-    );
-};
+class ContactBadges extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return(
+            <div class="secondary-description">
+                <div class="learn-more" onClick={
+                    () => {window.open(learnMores[this.props.index])}
+                }>
+                    Learn More
+                </div>
+            </div>
+        );
+    }
+}
+
+class Description extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            slidein: false,
+            slideout: true,
+            previndex: this.props.index,
+            curindex: this.props.index,
+            firsttime: true,
+        }
+    }
+
+    animate() {
+        this.setState({previndex: this.props.index, firsttime: false});
+        this.setState({slidein: true});
+        setTimeout(() => {
+            this.setState({curindex: this.props.index, slideout: true, slidein: false});
+            setTimeout(() => {
+                this.setState({slideout: false});
+            }, 1000);
+        }, 1000);
+    }
+
+    render() {
+        if(this.props.index !== this.state.previndex || this.state.firsttime) this.animate();
+        return (
+            <>
+                <div class={"description " + (this.state.slidein ? "slidein " : "") + (this.state.slideout ? "slideout" : "")}>
+                    {text[this.state.curindex]}
+                </div>
+                <ContactBadges index={this.props.index}/>
+            </>
+        );
+    }
+}
 
 class Text extends React.Component {
     // eslint-disable-next-line no-useless-constructor
@@ -168,7 +234,7 @@ class Text extends React.Component {
                 <header class="main-header">
                     I'm<Name index={index}/>
                 </header>
-                <Description text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at nulla massa. Maecenas finibus vehicula aliquet."/>
+                <Description index={index}/>
             </div>
         </div>
     )
