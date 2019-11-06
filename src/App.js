@@ -7,10 +7,10 @@ import { useRef, useLayoutEffect } from 'react'
 const isBrowser = typeof window !== `undefined`
 
 function getScrollPosition({ element, useWindow }) {
-  if (!isBrowser) return { x: 0, y: 0 }
+  if (!isBrowser) return { x: 0, y: 0 };
 
-  const target = element ? element.current : document.body
-  const position = target.getBoundingClientRect()
+  const target = element ? element.current : document.body;
+  const position = target.getBoundingClientRect();
 
   return useWindow
     ? { x: window.scrollX, y: window.scrollY }
@@ -18,16 +18,16 @@ function getScrollPosition({ element, useWindow }) {
 }
 
 export function useScrollPosition(effect, deps, element, useWindow, wait) {
-  const position = useRef(getScrollPosition({ useWindow }))
+  const position = useRef(getScrollPosition({ useWindow }));
 
-  let throttleTimeout = null
+  let throttleTimeout = null;
 
   const callBack = () => {
-    const currPos = getScrollPosition({ element, useWindow })
-    effect({ prevPos: position.current, currPos })
-    position.current = currPos
+    const currPos = getScrollPosition({ element, useWindow });
+    effect({ prevPos: position.current, currPos });
+    position.current = currPos;
     throttleTimeout = null
-  }
+  };
 
   useLayoutEffect(() => {
     const handleScroll = () => {
@@ -38,12 +38,18 @@ export function useScrollPosition(effect, deps, element, useWindow, wait) {
       } else {
         callBack()
       }
-    }
+    };
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll);
 
     return () => window.removeEventListener('scroll', handleScroll)
   }, deps)
+}
+
+function getNameIndex(scrollPos) {
+    let ret = Math.floor(-1*scrollPos/(window.innerHeight*0.9));
+    ret = ret >= names.length ? 0 : ret;
+    return ret;
 }
 
 const Banner = (props) => {
@@ -69,15 +75,65 @@ const Banner = (props) => {
     );
 };
 
-let images = ["myself", "Hangouts", "scio", "robotics"];
+const images = ["myself", "Hangouts", "scio", "robotics", "having fun"];
+const names = ["Alex Yang", "a Developer", "a Team Player", "an Engineer", "A Real Person"];
+const nameWidths = [4, 5, 6, 5, 5.4];
+const MyName = (props) => {
+    const ref = useRef(null);
+    return(
+        <>
+            <div ref={ref}>Ree</div>
+            <text
+                x="50%" y="55%"
+                dominantBaseline="middle"
+                textAnchor="middle">
+                {props.name}
+            </text>
+        </>
+    );
+}
 
 class Name extends React.Component {
-  constructor(props) {super(props);}
+    // eslint-disable-next-line no-useless-constructor
+  constructor(props) {
+      super(props);
+      this.state = {
+          animate: true,
+          prevIndex: this.props.index,
+          fadeOut: false,
+          name: names[this.props.index],
+      }
+  }
 
   render() {
-    return (
+      const baseWidth = nameWidths[this.props.index];
+      const style = {
+          width: baseWidth*10 + "vh"
+      };
+      console.log(baseWidth);
+      console.log(this.state.animate);
+      if(this.props.index !== this.state.prevIndex) {
+          this.state.prevIndex = this.props.index;
+          this.setState({fadeOut: true});
+          setTimeout(() => {
+              this.setState({fadeOut: false});
+              this.setState({animate: true});
+              this.setState({name: names[this.props.index]});
+              setTimeout(() => {
+                  this.setState({animate: false});
+              }, 1200);
+          }, 1000);
+      }
+      console.log(this.state.prevIndex, this.props.index);
+      return (
         <div class="my-name">
-          {this.props.name}
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="100" style={style}
+                stroke="#83cafc" fill="#83cafc" strokeWidth="2"
+                className={"text-line " + (this.state.animate ? "animate " : "") + (this.state.fadeOut ? "fadeOut" : "")}>
+                <MyName name={this.state.name}/>
+            </svg>
         </div>
     )
   }
@@ -98,11 +154,12 @@ class Text extends React.Component {
   }
 
   render() {
-    return (
+      let index = getNameIndex(this.props.scrollPos);
+      return (
         <div class="text-con">
             <div class="text">
                 <header class="main-header">
-                    I'm<Name name="Alex Yang"/>
+                    I'm<Name index={index}/>
                 </header>
                 <Description text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at nulla massa. Maecenas finibus vehicula aliquet."/>
             </div>
@@ -162,7 +219,7 @@ const Footer = (props) => {
 };
 
 function App() {
-    const [scrollPos, setScrollPos] = React.useState(true);
+    const [scrollPos, setScrollPos] = React.useState(0);
     useScrollPosition(({ prevPos, currPos }) => {
       setScrollPos(currPos.y);
     }, [scrollPos]);
@@ -171,7 +228,7 @@ function App() {
         <Banner/>
         <main>
             <Images/>
-            <Text/>
+            <Text scrollPos={scrollPos}/>
         </main>
         <ScrollButton scrollPos={scrollPos}/>
         <Footer/>

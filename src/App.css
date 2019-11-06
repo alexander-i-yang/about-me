@@ -104,7 +104,6 @@ main > div {
 }
 
 .my-name {
-  font-weight: bold;
   text-transform: capitalize;
   color: #83cafc;
   display: flex;
@@ -114,7 +113,7 @@ main > div {
 
 .pseudo-img {
   border: 1px solid gray;
-  height: 100vh;
+  height: 90vh;
   width: 100%;
   display: flex;
   background: #303030;
@@ -185,4 +184,34 @@ h1 {margin: 0;}
   background: rgba(255, 255, 255, 0.1);
   border-radius: 50px;
   border: 3px solid #171a20;
+}
+
+.text-line {
+    stroke-dasharray: 500;
+    width: 50vh;
+    stroke-dashoffset: 0;
+}
+
+.text-line.animate {
+    animation: dash 9s ease-out forwards, filling 1.25s ease-out forwards;
+}
+
+.text-line.fadeOut {
+    opacity: 0;
+    transition: all 1s;
+}
+
+@keyframes dash {
+    0% {stroke-dashoffset: 500;}
+    50% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes filling {
+  from {fill-opacity: 0; }
+  to { fill: #83cafc; fill-opacity: 1; }
 }
