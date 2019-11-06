@@ -46,15 +46,15 @@ export function useScrollPosition(effect, deps, element, useWindow, wait) {
   }, deps)
 }
 
-const images = ["myself", "Hangouts", "scio", "robotics", "having fun"];
-const names = ["Alex Yang", "a Developer", "a Scientist", "an Engineer", "A Real Person"];
-const nameWidths = [4, 5, 4.2, 5, 5.4];
+const images = ["myself", "Hangouts", "scio", "robotics", "having fun", "Me again"];
+const names = ["Alex Yang", "a Developer", "a Scientist", "an Engineer", "A Real Person", "Alex Yang"];
 const text = [
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at nulla massa. Maecenas finibus vehicula aliquet.",
     "Look how good I am at coding",
     "Look how good I am at scio",
     "Look how good I am at robotics",
     "Look how good I am at having opinions",
+    "And I can't wait to meet you!",
 ];
 const learnMores = [
     "#",
@@ -152,7 +152,6 @@ class Name extends React.Component {
   }
 
   render() {
-      const baseWidth = nameWidths[this.props.index];
       if(this.props.index !== this.state.prevIndex || this.state.firstTime) {
           this.animate();
       }
@@ -200,12 +199,12 @@ class Description extends React.Component {
                 <div class={"description " + (this.state.slidein ? "slidein " : "") + (this.state.slideout ? "slideout" : "")}>
                     {text[this.state.curindex]}
                     <div className="secondary-description">
-                        <div className="learn-more" onClick={
+                        <span className="learn-more" onClick={
                             () => {
                                 window.open(learnMores[this.props.index])
                             }}>
-                            Learn More
-                        </div>
+                            <span>Learn More</span>
+                        </span>
                     </div>
                 </div>
             </>
