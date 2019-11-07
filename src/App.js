@@ -114,15 +114,24 @@ const Banner = (props) => {
 };
 
 const MyName = (props) => {
-    const ref = useRef(null);
+    let index = 0;
+    const items = props.name.split("").map((item) => {
+        const style = {
+            animation: props.animate
+                ? ('dash 9s ease-out ' + index*0.05 + 's forwards, filling 1s ease-out ' + (0.05*index+0.05) + 's forwards')
+                : "",
+        };
+        console.log(style.animation);
+        index++;
+        return(<tspan style={style}>{item}</tspan>);
+    });
     return(
         <>
-            <div ref={ref}>Ree</div>
             <text
                 x="0" y="55%"
                 dominantBaseline="middle"
                 textAnchor="left">
-                {props.name}
+                {items}
             </text>
         </>
     );
@@ -153,8 +162,8 @@ class Name extends React.Component {
           this.setState({name: names[this.props.index]});
           setTimeout(() => {
               this.setState({animate: false});
-          }, 1200);
-      }, 1000);
+          }, 1750);
+      }, 1200);
   }
 
   render() {
@@ -168,7 +177,7 @@ class Name extends React.Component {
                 height="100"
                 stroke="#83cafc" fill="#83cafc" strokeWidth="2"
                 className={"text-line " + (this.state.animate ? "animate " : "") + (this.state.fadeOut ? "fadeOut" : "")}>
-                <MyName name={this.state.name}/>
+                <MyName name={this.state.name} animate={this.state.animate} fadeOut={this.state.fadeOut}/>
             </svg>
         </div>
     )
