@@ -187,7 +187,13 @@ main > div {
 
 .card:hover {
     box-shadow: 0 1px 6px 1px rgba(0, 0, 0, 0.3);
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(152, 255, 152, 0.1);
+}
+
+.card-header {transition: all 0.3s;}
+
+.card:hover .card-header {
+    color: #83cafc;
 }
 
 .card-description {
@@ -195,6 +201,11 @@ main > div {
     font-size: 2vh;
     margin-top: 1vh;
 }
+
+.card-description b{
+    color: #e0e0e0;
+}
+
 
 .description {
     margin-top: 4vh;
@@ -301,26 +312,42 @@ h1 {margin: 0;}
     cursor: pointer;
     border-radius: 500px;
     color: #a0a0a0;
-    padding: 1vh 1vh 1vh 3vh;
     font-size: 2vh;
     transition: all 0.5s;
     overflow: hidden;
     display: flex;
     align-items: center;
     width: auto;
+    padding: 1vh 2vh 1vh 4vh;
 }
 
 .learn-more:hover {
     color: #98ff98;
     background: rgba(152, 255, 152, 0.1);
     border-color: #98ff98;
-    padding-right: 3vh;
 }
 
-.learn-more::after {
-    content: 'keyboard_arrow_right';
-    font-family: 'Material Icons', sans-serif;
-    -webkit-font-feature-settings: 'liga';
+.learn-more.expanded {
+    padding: 1vh 4vh 1vh 2vh;
+}
+
+.learn-more span {
+    transition: all 0.5s;
+    position: relative;
+    left: 0;
+}
+
+.learn-more:hover span {
+    left: -1vh;
+}
+
+.learn-more.expanded:hover span {
+    transition: all 0.5s;
+    position: relative;
+    left: 1vh;
+}
+
+.learn-more i {
     opacity: 0;
     position: relative;
     left: 3vh;
@@ -333,8 +360,12 @@ h1 {margin: 0;}
     transition: all 0.5s;
 }
 
-.learn-more:hover::after {
-    left: 1vh;
+.learn-more.expanded i {
+    left: -3vh;
+}
+
+.learn-more:hover i{
+    left: 0;
     opacity: 1;
 }
 

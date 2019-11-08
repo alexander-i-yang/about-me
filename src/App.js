@@ -4,7 +4,7 @@ import arrow from './Arrow.png';
 import './App.css';
 import { useRef, useLayoutEffect } from 'react';
 
-const isBrowser = typeof window !== `undefined`
+const isBrowser = typeof window !== `undefined`;
 
 function getScrollPosition({ element, useWindow }) {
   if (!isBrowser) return { x: 0, y: 0 };
@@ -68,6 +68,12 @@ class StaggeredComponents extends React.Component {
     }
 }
 
+Array.prototype.swap = function(indexA, indexB) {
+   let temp = this[indexA];
+   this[indexA] = this[indexB];
+   this[indexB] = temp;
+};
+
 const images = [
     {
         id: "myself",
@@ -81,15 +87,22 @@ const images = [
             {
                 header: "Hangouts",
                 description: "A redesign of Google's Hangouts",
+                href: "https://codepen.io/theuncleofalex/full/OKByZm"
             }, {
                 header: "Due",
                 description: "A time-saving plugin for Google Docs",
+                //TODO: publsih due and put the link here
             }, {
                 header: "Helix.io",
                 description: "An online multi-player card game",
+                href: "https://theuncleofalex.github.io/Helix-3/"
             }, {
                 header: "Quantum Pool",
-                description: "A quirky pool game with an AI opponent",
+                description: "A quirky pool game with a programmed opponent",
+                href: "https://github.com/theuncleofAlex/Pool-Table",
+            }, {
+                header: "This website",
+                description: <>This website was coded <b>from scratch</b></>,
             },
         ]
     }, {
@@ -97,16 +110,17 @@ const images = [
         link: "Clubs",
         description: ["Science ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", " Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", " Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."],
         cardHeader: "View my results",
+        //TODO: Update these results or figure out how to present them better
         cards: [
             {
-                header: "Hangouts",
-                description: "A redesign of Google's Hangouts Service",
+                header: "2017",
+                description: "Second at State",
             }, {
-                header: "Due",
-                description: "A time-saving plugin for Google Docs",
+                header: "2018",
+                description: "First at Regionals",
             }, {
-                header: "Helix.io",
-                description: "An online multi-player card game",
+                header: "2019",
+                description: "First at UT",
             },
         ]
     }, {
@@ -264,16 +278,23 @@ class Description extends React.Component {
     render() {
         if(this.props.index !== this.state.previndex || this.state.firsttime) this.animate();
         const learnMoreText = this.props.expanded ? "Back" : "Learn More";
+        const buttonClass = "learn-more " + (this.props.expanded ? "expanded" : "");
+        const arrow = this.props.expanded ? "keyboard_arrow_left" : "keyboard_arrow_right";
+        let contents = [
+            <span>{learnMoreText}</span>,
+            <i className = "material-icons" >{arrow}</i>
+        ];
+        if(this.props.expanded) contents.swap(0, 1);
         return (
             <>
                 <div
                     class={"description " + (this.state.slidein ? "slidein " : "") + (this.state.slideout ? "slideout" : "")}
                 >{text[this.state.curindex]}
                     <div className="secondary-description">
-                        <span className="learn-more" onClick={
+                        <span className={buttonClass} onClick={
                             () => {this.learnMore();}
                         }>
-                            <span>{learnMoreText}</span>
+                            {contents}
                         </span>
                     </div>
                 </div>
@@ -289,8 +310,11 @@ class ShowCards extends React.Component {
 
     render() {
         let cards = images[this.props.index]["cards"].map(item => {
+            const href = item["href"];
             return(
-                <div class="card">
+                <div class="card" onClick={
+                    () => {window.open(href);}}
+                >
                     <div class="card-header">{item["header"]}</div>
                     <div class="card-description">{item["description"]}</div>
                 </div>
@@ -302,8 +326,8 @@ class ShowCards extends React.Component {
                 className = {"card-con"}
                 animated = {this.props.expanded}
                 transformFunction = "translateX(0)"
-                delayFunction = {index => {return(index*0.2+0.2);}}
-                durationFunction = {index => {return(1-index*0.1);}}
+                delayFunction = {index => {return(index*0.3+0.2);}}
+                durationFunction = {index => {return(1-index*0.2);}}
             />
         )
     }
@@ -343,7 +367,7 @@ class ExpandedTab extends React.Component {
                         elements = {elements}
                         animated = {this.props.expanded}
                         transformFunction = "translateX(0)"
-                        durationFunction = {index => {console.log(index); return(1.25-index*0.15);}}
+                        durationFunction = {index => {return(1.25-index*0.15);}}
                         delayFunction = {index => {return(0.1+index*0.15);}}
                     />
                 </div>
