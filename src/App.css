@@ -170,14 +170,18 @@ main > div {
     border-color: #171a20;
 }
 
+.card-con {
+    margin-right: 2vh;
+    min-width: 25vh;
+}
+
 .card {
     padding: 2vh;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 2vh;
-    margin-right: 2vh;
     cursor: pointer;
-    min-width: 25vh;
     box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s;
 }
 
 

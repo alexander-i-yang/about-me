@@ -87,6 +87,9 @@ const images = [
             }, {
                 header: "Helix.io",
                 description: "An online multi-player card game",
+            }, {
+                header: "Quantum Pool",
+                description: "A quirky pool game with an AI opponent",
             },
         ]
     }, {
@@ -104,9 +107,6 @@ const images = [
             }, {
                 header: "Helix.io",
                 description: "An online multi-player card game",
-            }, {
-                header: "Quantum Pool",
-                description: "A quirky pool game with an AI opponent",
             },
         ]
     }, {
@@ -290,16 +290,16 @@ class ShowCards extends React.Component {
     render() {
         let cards = images[this.props.index]["cards"].map(item => {
             return(
-                <>
+                <div class="card">
                     <div class="card-header">{item["header"]}</div>
                     <div class="card-description">{item["description"]}</div>
-                </>
+                </div>
             );
         });
         return(
             <StaggeredComponents
                 elements = {cards}
-                className = {"card"}
+                className = {"card-con"}
                 animated = {this.props.expanded}
                 transformFunction = "translateX(0)"
                 delayFunction = {index => {return(index*0.2+0.2);}}
