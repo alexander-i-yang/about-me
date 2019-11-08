@@ -46,6 +46,28 @@ export function useScrollPosition(effect, deps, element, useWindow, wait) {
   }, deps)
 }
 
+class StaggeredComponents extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        let index = 0;
+        const className = "animated-expand " + (this.props.className ? this.props.className : "");
+        return this.props.elements.map((item) => {
+            const style = this.props.animated ? {
+                transform: this.props.transformFunction,
+                opacity: 1,
+                transitionDelay: this.props.delayFunction(index) + "s",
+                transitionDuration: this.props.durationFunction(index) + "s",
+                transitionTimingFunction: "ease-out",
+            } : {};
+            index++;
+            return(<div class={className} style={style}>{item}</div>);
+        });
+    }
+}
+
 const images = [
     {
         id: "myself",
@@ -58,7 +80,7 @@ const images = [
         cards: [
             {
                 header: "Hangouts",
-                description: "A redesign of Google's Hangouts Service",
+                description: "A redesign of Google's Hangouts",
             }, {
                 header: "Due",
                 description: "A time-saving plugin for Google Docs",
@@ -82,6 +104,9 @@ const images = [
             }, {
                 header: "Helix.io",
                 description: "An online multi-player card game",
+            }, {
+                header: "Quantum Pool",
+                description: "A quirky pool game with an AI opponent",
             },
         ]
     }, {
@@ -147,7 +172,6 @@ const MyName = (props) => {
                 ? ('dash 9s ease-out ' + index*0.05 + 's forwards, filling 1s ease-out ' + (0.05*index+0.1) + 's forwards')
                 : "",
         };
-        console.log(style.animation);
         index++;
         return(<tspan style={style}>{item}</tspan>);
     });
@@ -233,7 +257,7 @@ class Description extends React.Component {
         }, 1000);
     }
 
-    learnMore(index) {
+    learnMore() {
         this.props.setExpanded(!this.props.expanded);
     }
 
@@ -247,7 +271,7 @@ class Description extends React.Component {
                 >{text[this.state.curindex]}
                     <div className="secondary-description">
                         <span className="learn-more" onClick={
-                            () => {this.learnMore(this.state.curindex);}
+                            () => {this.learnMore();}
                         }>
                             <span>{learnMoreText}</span>
                         </span>
@@ -255,6 +279,33 @@ class Description extends React.Component {
                 </div>
             </>
         );
+    }
+}
+
+class ShowCards extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        let cards = images[this.props.index]["cards"].map(item => {
+            return(
+                <>
+                    <div class="card-header">{item["header"]}</div>
+                    <div class="card-description">{item["description"]}</div>
+                </>
+            );
+        });
+        return(
+            <StaggeredComponents
+                elements = {cards}
+                className = {"card"}
+                animated = {this.props.expanded}
+                transformFunction = "translateX(0)"
+                delayFunction = {index => {return(index*0.2+0.2);}}
+                durationFunction = {index => {return(1-index*0.1);}}
+            />
+        )
     }
 }
 
@@ -267,24 +318,34 @@ class ExpandedTab extends React.Component {
     }
 
     render() {
-        let animatedElements = [];
-        let index = 0;
-        images[this.props.index]["description"].map((item) => {
-            const style = this.props.expanded ? {
-                transform: "translateX(0)",
-                opacity: 1,
-                transitionDelay: 0.1+index*0.15 + "s",
-                transitionDuration: 1.25-index*0.15 + "s",
-                transitionTimingFunction: "ease-out",
-            } : {};
-            const animatedItem = <div class="animated-expand" style={style}>{item}</div>
-            animatedElements.push(animatedItem);
-            index++;
+        let elements = [];
+        const imageData = images[this.props.index];
+        imageData["description"].map(item => {
+            const descriptionDiv = <p>{item}</p>;
+            elements.push(descriptionDiv);
         });
+        const cardHeader = imageData["cardHeader"];
+        if(cardHeader) {
+            elements.push(<div class="expand-header">{cardHeader}</div>);
+            elements.push(
+                <div class="cards">
+                    <ShowCards
+                        expanded={this.props.expanded}
+                        index={this.props.index}
+                    />
+                </div>
+            );
+        }
         return(
             <>
                 <div class="expanded-tab">
-                    {animatedElements}
+                    <StaggeredComponents
+                        elements = {elements}
+                        animated = {this.props.expanded}
+                        transformFunction = "translateX(0)"
+                        durationFunction = {index => {console.log(index); return(1.25-index*0.15);}}
+                        delayFunction = {index => {return(0.1+index*0.15);}}
+                    />
                 </div>
             </>
         );
