@@ -451,11 +451,13 @@ const Footer = (props) => {
         const cur = contactBadges[x];
         const link = cur[1];
         const imgsrc = cur[2];
-        const ret = (<div class="contact-badge" onClick={
-            () => {window.open(link);}}>
-            {imgsrc}
-        </div>);
-        contacts.push(ret);
+        if(link && imgsrc) {
+            const ret = (<div class="contact-badge" onClick={
+                () => {window.open(link);}}>
+                {imgsrc}
+            </div>);
+            contacts.push(ret);
+        }
     }
     return(
       <footer>
